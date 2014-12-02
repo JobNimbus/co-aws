@@ -27,8 +27,10 @@ function Client(opts) {
   aws.config.update(opts);
 
   // wayyyy more to support...
-  this.ec2 = new aws.EC2;
-  wrap(this.ec2);
+  ['EC2', 'S3'].forEach(function (service) {
+    this[service] = new aws[service];
+    wrap(this[service]);
+  });
 }
 
 /**
